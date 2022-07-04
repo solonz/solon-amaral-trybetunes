@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+// https://dev.to/yunweneric/implementing-react-routes-part-2-link-vs-navlink-5d6e
 
 class Nav extends React.Component {
   render() {

@@ -1,13 +1,13 @@
 import React from 'react';
 
-class profile extends React.Component {
+class Profile extends React.Component {
   render() {
     return (
       <div data-testid="page-profile">
-        Write About Your Profile
+        <h1>Profile</h1>
       </div>
     );
   }
 }
 
-export default profile;
+export default Profile;

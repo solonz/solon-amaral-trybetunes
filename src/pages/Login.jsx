@@ -18,7 +18,7 @@ class Login extends React.Component {
   handleValidationButton = () => {
     const { name } = this.state;
     const MIN_CHARS = 3;
-    if (name.length >= MIN_CHARS) {
+    if (name.trim().length >= MIN_CHARS) {
       this.setState({
         disableButton: false,
       });

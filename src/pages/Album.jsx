@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import MusicCard from '../components/MusicCard';
 import getMusics from '../services/musicsAPI';
+import { getFavoriteSongs } from '../services/favoriteSongsAPI';
+import Loading from './Loading';
 
 class Album extends React.Component {
   constructor() {
@@ -10,11 +12,21 @@ class Album extends React.Component {
     this.state = {
       albumInfo: {},
       songs: [],
+      favoritesList: [],
+      loading: false,
     };
   }
 
 componentDidMount = async () => {
-  await this.pegaMusica();
+  this.pegaMusica();
+  this.handleFavorites();
+}
+
+handleFavorites = async () => {
+  this.setState({ loading: true });
+  const favoritesList = await getFavoriteSongs();
+  this.setState({ loading: false });
+  this.setState(favoritesList);
 }
 
   pegaMusica = async () => {
@@ -27,13 +39,19 @@ componentDidMount = async () => {
   }
 
   render() {
-    const { albumInfo, songs } = this.state;
+    const { albumInfo, songs, favoritesList, loading } = this.state;
     return (
       <div data-testid="page-album">
+        {loading && <Loading />}
         <Header />
         <h1 data-testid="artist-name">{albumInfo.artistName}</h1>
         <h1 data-testid="album-name">{albumInfo.collectionName}</h1>
-        {songs.map((song) => <MusicCard song={ song } key={ song.trackId } />)}
+        {songs.map((song) => (<MusicCard
+          song={ song }
+          key={ song.trackId }
+          trackId={ song.trackId }
+          favorite={ favoritesList.some((favorite) => favorite.trackId === song.trackId) }
+        />))}
       </div>
     );
   }

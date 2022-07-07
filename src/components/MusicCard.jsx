@@ -16,19 +16,22 @@ class MusicCard extends React.Component {
   componentDidMount() {
     const { favorite } = this.props;
     this.setState({ isFavorite: favorite });
+    console.log(favorite);
   }
 
-  handleChange = async () => {
+  handleChange = async (event) => {
+    const { target: { checked } } = event;
     const { song } = this.props;
-    const { isFavorite } = this.state;
     this.setState({ loading: true });
 
-    if (isFavorite) {
-      await removeSong(song);
-    } else {
+    if (checked) {
       await addSong(song);
+      console.log('add musica');
+    } else {
+      await removeSong(song);
+      console.log('removi musica');
     }
-    this.setState({ isFavorite: !isFavorite, loading: false });
+    this.setState({ isFavorite: checked, loading: false });
   }
 
   render() {

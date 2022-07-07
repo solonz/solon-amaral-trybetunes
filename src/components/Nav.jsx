@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 class Nav extends React.Component {
   render() {
     return (
-      <div data-testid="page-album">
+      <div data-testid="page-nav">
         <ul>
           <li>
             <NavLink data-testid="link-to-search" to="/search">

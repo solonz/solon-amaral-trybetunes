@@ -13,7 +13,7 @@ class Album extends React.Component {
       albumInfo: {},
       songs: [],
       favoritesList: [],
-      loading: false,
+      loading: true,
     };
   }
 
@@ -27,12 +27,12 @@ class Album extends React.Component {
   }
 
     componentDidMount = async () => {
-      this.pegaMusica();
-      this.handleFavorites();
+      await this.pegaMusica();
+      await this.handleFavorites();
     }
 
   handleFavorites = async () => {
-    this.setState({ loading: true });
+    // this.setState({ loading: true });
     const favoritesList = await getFavoriteSongs();
     this.setState({ loading: false, favoritesList });
   }
@@ -41,12 +41,12 @@ class Album extends React.Component {
     const { albumInfo, songs, favoritesList, loading } = this.state;
     console.log(favoritesList);
     return (
-      <div data-testid="pagealbu">
+      <div data-testid="page-album">
         {loading && <Loading />}
         <Header />
         <h1 data-testid="artist-name">{albumInfo.artistName}</h1>
         <h1 data-testid="album-name">{albumInfo.collectionName}</h1>
-        {songs.map((song) => (<MusicCard
+        {!loading && songs.map((song) => (<MusicCard
           song={ song }
           key={ song.trackId }
           trackId={ song.trackId }

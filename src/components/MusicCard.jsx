@@ -13,7 +13,7 @@ class MusicCard extends React.Component {
     };
   }
 
-  componentDidMount = () => {
+  componentDidMount() {
     const { favorite } = this.props;
     this.setState({ isFavorite: favorite });
   }
@@ -32,7 +32,7 @@ class MusicCard extends React.Component {
   }
 
   render() {
-    const { song, favorite } = this.props;
+    const { song } = this.props;
     const { isFavorite, loading } = this.state;
     return (
       <section>
@@ -47,11 +47,11 @@ class MusicCard extends React.Component {
             .
           </audio>
         </div>
-        <label htmlFor={ favorite }>
+        <label htmlFor="favorite">
           <input
             data-testid={ `checkbox-music-${song.trackId}` }
             type="checkbox"
-            id={ favorite }
+            id="favorite"
             checked={ isFavorite }
             onChange={ this.handleChange }
           />
@@ -67,6 +67,7 @@ MusicCard.propTypes = {
   song: PropTypes.shape({
     trackName: PropTypes.string,
     previewUrl: PropTypes.string,
+    favorite: PropTypes.bool.isRequired,
   }),
 }.isRequired;
 

@@ -17,18 +17,6 @@ class Album extends React.Component {
     };
   }
 
-componentDidMount = async () => {
-  this.pegaMusica();
-  this.handleFavorites();
-}
-
-handleFavorites = async () => {
-  this.setState({ loading: true });
-  const favoritesList = await getFavoriteSongs();
-  this.setState({ loading: false });
-  this.setState(favoritesList);
-}
-
   pegaMusica = async () => {
     const { match } = this.props;
     const { params } = match;
@@ -38,10 +26,22 @@ handleFavorites = async () => {
     this.setState({ albumInfo, songs });
   }
 
+    componentDidMount = async () => {
+      this.pegaMusica();
+      this.handleFavorites();
+    }
+
+  handleFavorites = async () => {
+    this.setState({ loading: true });
+    const favoritesList = await getFavoriteSongs();
+    this.setState({ loading: false, favoritesList });
+  }
+
   render() {
     const { albumInfo, songs, favoritesList, loading } = this.state;
+    console.log(favoritesList);
     return (
-      <div data-testid="page-album">
+      <div data-testid="pagealbu">
         {loading && <Loading />}
         <Header />
         <h1 data-testid="artist-name">{albumInfo.artistName}</h1>

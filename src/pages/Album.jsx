@@ -26,15 +26,15 @@ class Album extends React.Component {
     this.setState({ albumInfo, songs });
   }
 
-    componentDidMount = async () => {
-      await this.pegaMusica();
-      await this.handleFavorites();
-    }
-
   handleFavorites = async () => {
-    // this.setState({ loading: true });
     const favoritesList = await getFavoriteSongs();
-    this.setState({ loading: false, favoritesList });
+    this.setState({ favoritesList });
+  }
+
+  componentDidMount = async () => {
+    await this.pegaMusica();
+    await this.handleFavorites();
+    this.setState({ loading: false });
   }
 
   render() {
